@@ -29,13 +29,6 @@ app.use(
   })
 );
 
-/*app.use(
-  basicAuth({
-    users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASS },
-    challenge: true,
-  })
-);*/
-
 const getAccessToken = async () => {
   try {
     const authOptions = {
@@ -83,6 +76,10 @@ app.get("/get_access_token", ensureFreshAccessToken, (req, res) => {
   res.send({ access_token: accessToken });
 });
 
+app.get("/", (req, res) => {
+  res.send("home page");
+});
+
 // Automatically refresh the access token before it expires (every 55 minutes)
 setInterval(async () => {
   await getAccessToken();
@@ -93,3 +90,5 @@ const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
