@@ -73,11 +73,11 @@ const ensureFreshAccessToken = async (req, res, next) => {
 
 // Endpoint to get the current access token
 app.get("/get_access_token", ensureFreshAccessToken, (req, res) => {
-  res.send({ access_token: accessToken });
+  res.json({ access_token: accessToken });
 });
 
 app.get("/", (req, res) => {
-  res.send("home page");
+  res.json({ msg: "home page" });
 });
 
 // Automatically refresh the access token before it expires (every 55 minutes)
