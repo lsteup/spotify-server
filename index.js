@@ -48,17 +48,17 @@ const getAccessToken = async () => {
     if (response.status === 200) {
       accessToken = response.data.access_token;
       tokenExpiryTime = Date.now() + response.data.expires_in * 1000; // Calculate expiry time
-      console.log("Access Token:", accessToken);
-      console.log("Expires In:", response.data.expires_in, "seconds");
 
       return accessToken;
     } else {
       console.error("Failed to get access token:", response.data);
-      return null;
+      res.json({ msg: "failed to get access token:", data: response.data });
+      return { msg: "failed to get access token:", data: response.data };
     }
   } catch (err) {
     console.error("Error getting access token:", err.message);
-    return null;
+    res.json({ msg: "failed to get access token:", data: response.data });
+    return { msg: "failed to get access token:", data: response.data };
   }
 };
 
